@@ -11,17 +11,23 @@ apkArches() {
 	_awkArch "$version" '{ print $2 }'
 }
 
+
+
 hasBashbrewArch() {
 	local version="$1"; shift
 	local bashbrewArch="$1"; shift
 	_awkArch "$version" 'BEGIN { exitCode = 1 } $1 == bashbrewArch { exitCode = 0 } END { exit exitCode }' -v bashbrewArch="$bashbrewArch"
 }
 
+
+
 apkToDockerArch() {
 	local version="$1"; shift
 	local apkArch="$1"; shift
 	_awkArch "$version" '$2 == apkArch { print $3; exit }' -v apkArch="$apkArch"
 }
+
+
 
 _generateParentRepoToArches() {
 	local repo="$1"; shift
